@@ -18,18 +18,24 @@ let ProductController = class ProductController {
     getProduct(id) {
         return products_1.default.findOneById(id);
     }
-    allProducts() {
-        const products = products_1.default.find();
-        return { products };
+    allProduct() {
+        return products_1.default.find();
     }
     async updateProduct(id, update) {
         const product = await products_1.default.findOneById(id);
         if (!product)
-            throw new routing_controllers_1.NotFoundError("Cannot find page");
+            throw new routing_controllers_1.NotFoundError("Cannot find evaluation");
         return products_1.default.merge(product, update).save();
     }
-    createPage(product) {
+    async create(product) {
         return product.save();
+    }
+    async removeProduct(id) {
+        const product = await products_1.default.findOneById(id);
+        if (!product)
+            throw new routing_controllers_1.NotFoundError("Cannot find user");
+        product.remove();
+        return "Evaluation succesfully deleted";
     }
 };
 __decorate([
@@ -44,7 +50,7 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
-], ProductController.prototype, "allProducts", null);
+], ProductController.prototype, "allProduct", null);
 __decorate([
     routing_controllers_1.Put("/products/:id"),
     __param(0, routing_controllers_1.Param("id")),
@@ -59,8 +65,15 @@ __decorate([
     __param(0, routing_controllers_1.Body()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [products_1.default]),
-    __metadata("design:returntype", void 0)
-], ProductController.prototype, "createPage", null);
+    __metadata("design:returntype", Promise)
+], ProductController.prototype, "create", null);
+__decorate([
+    routing_controllers_1.Delete("/products/:id"),
+    __param(0, routing_controllers_1.Param("id")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", Promise)
+], ProductController.prototype, "removeProduct", null);
 ProductController = __decorate([
     routing_controllers_1.JsonController()
 ], ProductController);

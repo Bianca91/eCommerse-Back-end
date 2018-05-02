@@ -4,6 +4,7 @@ const typeorm_1 = require("typeorm");
 const DefaultNamingStrategy_1 = require("typeorm/naming-strategy/DefaultNamingStrategy");
 const StringUtils_1 = require("typeorm/util/StringUtils");
 const products_1 = require("./entity/products");
+const user_1 = require("./login/user");
 class CustomNamingStrategy extends DefaultNamingStrategy_1.DefaultNamingStrategy {
     tableName(targetName, userSpecifiedName) {
         return userSpecifiedName ? userSpecifiedName : StringUtils_1.snakeCase(targetName) + 's';
@@ -21,7 +22,7 @@ class CustomNamingStrategy extends DefaultNamingStrategy_1.DefaultNamingStrategy
 exports.default = () => typeorm_1.createConnection({
     type: "postgres",
     url: process.env.DATABASE_URL || 'postgres://postgres:secret@localhost:5432/postgres',
-    entities: [products_1.default],
+    entities: [products_1.default, user_1.default],
     synchronize: true,
     logging: true,
     namingStrategy: new CustomNamingStrategy()

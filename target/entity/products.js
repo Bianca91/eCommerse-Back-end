@@ -18,21 +18,21 @@ __decorate([
     __metadata("design:type", Number)
 ], Product.prototype, "id", void 0);
 __decorate([
-    typeorm_1.Column('text', { nullable: false }),
+    typeorm_1.Column("text", { nullable: true }),
     __metadata("design:type", String)
 ], Product.prototype, "name", void 0);
 __decorate([
-    typeorm_1.Column('text', { nullable: true }),
+    typeorm_1.Column("text", { nullable: true }),
     __metadata("design:type", String)
-], Product.prototype, "image", void 0);
+], Product.prototype, "price", void 0);
 __decorate([
-    typeorm_1.Column('text', { nullable: false }),
+    typeorm_1.Column("text", { nullable: true }),
     __metadata("design:type", String)
 ], Product.prototype, "description", void 0);
 __decorate([
-    typeorm_1.Column('text', { nullable: true }),
+    typeorm_1.Column("text", { nullable: true }),
     __metadata("design:type", String)
-], Product.prototype, "price", void 0);
+], Product.prototype, "image", void 0);
 Product = __decorate([
     typeorm_1.Entity()
 ], Product);

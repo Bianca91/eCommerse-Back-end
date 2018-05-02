@@ -1,12 +1,14 @@
 import {
   JsonController,
-  Get,
-  Param,
   Put,
+  Param,
   Body,
   NotFoundError,
   Post,
-  HttpCode
+  HttpCode,
+  Get,
+  Delete,
+  Authorized
 } from "routing-controllers";
 import Product from "../entity/products";
 
@@ -17,26 +19,37 @@ export default class ProductController {
     return Product.findOneById(id);
   }
 
+  //  @Authorized()
   @Get("/products")
-  allProducts() {
-    const products = Product.find();
-    return { products };
+  allProduct() {
+    return Product.find();
   }
 
+  //  @Authorized()
   @Put("/products/:id")
   async updateProduct(
     @Param("id") id: number,
     @Body() update: Partial<Product>
   ) {
     const product = await Product.findOneById(id);
-    if (!product) throw new NotFoundError("Cannot find page");
+    if (!product) throw new NotFoundError("Cannot find evaluation");
 
     return Product.merge(product, update).save();
   }
 
+  // @Authorized()
   @Post("/products")
   @HttpCode(201)
-  createPage(@Body() product: Product) {
+  async create(@Body() product: Product) {
     return product.save();
+  }
+
+  //  @Authorized()
+  @Delete("/products/:id")
+  async removeProduct(@Param("id") id: number) {
+    const product = await Product.findOneById(id);
+    if (!product) throw new NotFoundError("Cannot find user");
+    product.remove();
+    return "Evaluation succesfully deleted";
   }
 }
