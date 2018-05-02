@@ -8,10 +8,4 @@ const app = routing_controllers_1.createKoaServer({
     controllers: [products_1.default]
 });
 app.listen(port, () => console.log(`Listening on port ${port}`));
-require("reflect-metadata");
-const port = process.env.PORT || 4000;
-const app = routing_controllers_1.createKoaServer({
-    controllers: [products_1.default]
-});
-app.listen(port, () => console.log(`Listening on port ${port}`));
 //# sourceMappingURL=index.js.map
